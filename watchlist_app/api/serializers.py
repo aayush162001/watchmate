@@ -1,21 +1,51 @@
 from rest_framework import serializers
-from watchlist_app.models import WatchList,StreamPlatform
+from watchlist_app.models import WatchList,StreamPlatform,Review
 
+class ReviewSerializer(serializers.ModelSerializer):
+    
+    
+    class Meta:
+        model = Review
+        fields = '__all__'
 
 
 class WatchSerilizer(serializers.ModelSerializer):
     
+    reviews = ReviewSerializer(many=True, read_only=True)
     
     class Meta:
         model = WatchList
         fields = "__all__"
-        
+
 class StreamPlatformSerializer(serializers.ModelSerializer):
+    watchlist = WatchSerilizer(many=True, read_only=True)
     
+    # watchlist = serializers.StringRelatedField(many=True)
+    # watchlist = serializers.PrimaryKeyRelatedField(many=True)
+    # watchlist = serializers.HyperlinkedRelatedField(
+    #     many=True,
+    #     read_only=True,
+    #     view_name='movie-details'
+    # )
     
     class Meta:
         model = StreamPlatform
         fields = "__all__"            
+
+
+# class StreamPlatformSerializer(serializers.ModelSerializer):
+#     watchlist = WatchSerilizer(many=True, read_only=True)
+#     # watchlist = serializers.StringRelatedField(many=True)
+#     # watchlist = serializers.PrimaryKeyRelatedField(many=True)
+#     # watchlist = serializers.HyperlinkedRelatedField(
+#     #     many=True,
+#     #     read_only=True,
+#     #     view_name='movie-details'
+#     # )
+    
+#     class Meta:
+#         model = StreamPlatform
+#         fields = "__all__"            
 
 
 # class MoiveSerilizer(serializers.ModelSerializer):

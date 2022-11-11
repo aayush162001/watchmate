@@ -60,16 +60,16 @@ class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
 #     serializer_class = ReviewSerializer
 #     def get(self, request, *args, **kwargs):
 #         return self.retrieve(request, *args, **kwargs)
-class StreamPlatfrom(viewsets.ViewSet):
+class StreamPlatfromVS(viewsets.ViewSet):
     def list(self, request):
-        queryset = StreamPlatfrom.objects.all()
+        queryset = StreamPlatform.objects.all()
         serializer = StreamPlatformSerializer(queryset, many=True)
         return Response(serializer.data)
     
     def retrieve(self, request, pk=None):
-        queryset = StreamPlatfrom.objects.all()
-        user = get_object_or_404(queryset, pk=pk)
-        serializer = StreamPlatformSerializer(user)
+        queryset = StreamPlatform.objects.all()
+        watchlist = get_object_or_404(queryset, pk=pk)
+        serializer = StreamPlatformSerializer(watchlist)
         return Response(serializer.data)
 
 class StreamPlatformAV(APIView):
